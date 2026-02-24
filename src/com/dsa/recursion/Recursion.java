@@ -1,6 +1,8 @@
 package com.dsa.recursion;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class Recursion {
@@ -76,5 +78,59 @@ public class Recursion {
     }
     public static void fibonacciStream(int n){
         Stream.iterate(new int[]{0,1},i->new int[]{i[1],i[0]+i[1]}).map(i->i[1]).limit(n).forEach(i->System.out.print(i+" "));
+    }
+
+    public static void recursivePermutation(int[] nums, List<Integer> ds, List<List<Integer>> ans, boolean[] freq){
+        if(ds.size()==nums.length){
+            ans.add(new ArrayList<>(ds));
+        }
+        for(int i=0;i<nums.length;i++){
+            if(!freq[i]){
+                freq[i]=true;
+                ds.add(nums[i]);
+                recursivePermutation(nums,ds,ans,freq);
+                ds.removeLast();
+                freq[i]=false;
+            }
+        }
+    }
+    /**
+     * Finding Next Permutation, Starting search from the right to left to find the point where the left<right
+     * Once the dip is found, replacing it with the min number greater than it.
+     * Reversing the elements with position>index so that we get the next permutation.
+     */
+    public void nextPermutation(int[] nums) {
+        int index =-1,n=nums.length;
+        for(int i=n-2;i>=0;i--){
+            if(nums[i]<nums[i+1]){
+                index=i;
+                break;
+            }
+        }
+        if(index<0){
+            reverse(nums, 0, nums.length-1);
+            return;
+        }
+        for(int i=n-1;i>index;i--){
+            if(nums[i]>nums[index]){
+                swap(nums,index,i);
+                break;
+            }
+        }
+        reverse(nums,index+1,nums.length-1);
+    }
+
+    public void swap(int[] nums, int start, int end){
+        int temp = nums[start];
+        nums[start] = nums[end];
+        nums[end] = temp;
+    }
+
+    public void reverse(int[] nums, int i, int j){
+        while(i<j){
+            swap(nums,i,j);
+            i++;
+            j--;
+        }
     }
 }

@@ -343,4 +343,22 @@ public class SortingAlgorithms {
         }
     }
 
+    /**
+     * Cycle Sort
+     * Elements have to be continuous in order to sort the array.
+     * Swapping the elements
+     */
+    public static void cycleSort(int[] arr){
+        int swap=0;
+        while(swap<arr.length){
+            if(arr[swap]!=swap+1){
+                int temp = arr[swap];
+                arr[swap] = arr[temp-1];
+                arr[temp-1] = temp;
+            }else{
+                swap+=1;
+            }
+        }
+        System.out.println("Cyclic Sort: "+Arrays.toString(arr));
+    }
 }
