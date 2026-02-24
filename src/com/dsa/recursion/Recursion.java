@@ -94,43 +94,4 @@ public class Recursion {
             }
         }
     }
-    /**
-     * Finding Next Permutation, Starting search from the right to left to find the point where the left<right
-     * Once the dip is found, replacing it with the min number greater than it.
-     * Reversing the elements with position>index so that we get the next permutation.
-     */
-    public void nextPermutation(int[] nums) {
-        int index =-1,n=nums.length;
-        for(int i=n-2;i>=0;i--){
-            if(nums[i]<nums[i+1]){
-                index=i;
-                break;
-            }
-        }
-        if(index<0){
-            reverse(nums, 0, nums.length-1);
-            return;
-        }
-        for(int i=n-1;i>index;i--){
-            if(nums[i]>nums[index]){
-                swap(nums,index,i);
-                break;
-            }
-        }
-        reverse(nums,index+1,nums.length-1);
-    }
-
-    public void swap(int[] nums, int start, int end){
-        int temp = nums[start];
-        nums[start] = nums[end];
-        nums[end] = temp;
-    }
-
-    public void reverse(int[] nums, int i, int j){
-        while(i<j){
-            swap(nums,i,j);
-            i++;
-            j--;
-        }
-    }
 }
