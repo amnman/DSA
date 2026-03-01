@@ -294,4 +294,111 @@ public class ArrayEasy {
             j--;
         }
     }
+    public static void setZeroes(int[][] matrix) {
+        List<List<Integer>> result = new ArrayList<>();
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[0].length;j++){
+                if(matrix[i][j]==0){
+                    List<Integer> temp = new ArrayList<>();
+                    temp.add(i);
+                    temp.add(j);
+                    result.add(temp);
+                }
+            }
+        }
+        for(List<Integer> ar : result){
+            for(int i=0;i<matrix.length;i++){
+                matrix[i][ar.get(1)]=0;
+            }
+            for(int j=0;j<matrix[0].length;j++){
+                matrix[ar.get(0)][j]=0;
+            }
+        }
+        for(int[] i:matrix){
+            System.out.println(Arrays.toString(i));
+        }
+    }
+
+    public void rotate(int[][] matrix) {
+        int[][] res = new int[matrix.length][matrix[0].length];
+        int m=matrix.length,n=matrix[0].length;
+        for(int j=0;j<n;j++){
+            for(int i=0;i<m;i++){
+                res[j][n-i-1] = matrix[i][j];
+            }
+        }
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                matrix[i][j]=res[i][j];
+            }
+        }
+    }
+
+    public void setZeroesOptimized(int[][] matrix) {
+        boolean firstRowZero=false,firstColumnZero=false;
+        int m = matrix.length,n=matrix[0].length;
+        for(int i=0;i<m;i++){
+            if(matrix[i][0]==0){
+                firstColumnZero=true;
+                break;
+            }
+        }
+        for(int j=0;j<n;j++){
+            if(matrix[0][j]==0){
+                firstRowZero=true;
+                break;
+            }
+        }
+        for(int i=1;i<m;i++){
+            for(int j=1;j<n;j++){
+                if(matrix[i][j]==0){
+                    matrix[0][j]=0;
+                    matrix[i][0]=0;
+                }
+            }
+        }
+        for(int i=1;i<m;i++){
+            for(int j=1;j<n;j++){
+                if(matrix[i][0]==0 || matrix[0][j]==0){
+                    matrix[i][j]=0;
+                }
+            }
+        }
+        if(firstRowZero){
+            for(int j=0;j<n;j++){
+                matrix[0][j]=0;
+            }
+        }
+        if(firstColumnZero){
+            for(int i=0;i<m;i++){
+                matrix[i][0]=0;
+            }
+        }
+    }
+
+    public static void rotateOptimised(int[][] matrix) {
+        int n = matrix[0].length;
+        for(int i = 0; i<n ;i++){
+            for(int j = i+1; j<n; j++){
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+        for(int[] a : matrix){
+            reverse(a);
+        }
+
+    }
+
+    public static void reverse(int[] arr){
+        int i = 0,j = arr.length-1;
+        while(i<j){
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+            i+=1;
+            j-=1;
+        }
+    }
 }
